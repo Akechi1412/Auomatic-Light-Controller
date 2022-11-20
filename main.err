@@ -1,0 +1,6 @@
+Compiling D:\221\Embedded System Design\Project\Automatic Light Controller\CCS\main on 21-Nov-22 at 00:15
+>>> Warning 245 "D:\221\Embedded System Design\Project\Automatic Light Controller\CCS\main.c" Line 586(0,1): File may have mis-matched #if/#endif
+>>> Warning 216 "D:\221\Embedded System Design\Project\Automatic Light Controller\CCS\main.c" Line 586(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIV88)
+      Memory usage:   ROM=40%      RAM=12% - 17%
+      0 Errors,  2 Warnings.
+Build Successful.
