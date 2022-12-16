@@ -1,10 +1,9 @@
-F N "LGD" 2 540 ""
-D G "__PCM__" 2 540 ""5.109""
-D G "__DEVICE__" 2 540 "877"
-D G "__DATE__" 2 540 ""21-Nov-22""
-D G "__TIME__" 2 540 ""00:15:59""
-D G "_UNICODE" 2 540 ""?""
-D G "__EVAL" 2 540 ""?"" "* File:   main.c"
+D G "__PCM__" 0 667 ""5.109""
+D G "__DEVICE__" 0 667 "877"
+D G "__DATE__" 0 667 ""15-Dec-22""
+D G "__TIME__" 0 667 ""01:13:23""
+D G "_UNICODE" 0 667 ""?""
+D G "__EVAL" 0 667 ""?"" "* File:   main.c"
 C G "" 0 1 1 "*"
 C G "" 0 1 1 "*"
 C G "" 1 1 1 "*"
@@ -1187,397 +1186,323 @@ C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
 C L "jump_to_isr" 3 1 1 "FUNCTION"
-D G "_STDINT" 4 19 ""
-C L "jump_to_isr" 4 2 1 "FUNCTION"
-T G "int8_t" 4 23 "sint8" `833 
-T G "uint8_t" 4 24 "int8" `834 
-T G "int16_t" 4 25 "sint16" `835 
-T G "uint16_t" 4 26 "int16" `836 
-T G "int32_t" 4 27 "sint32" `837 
-T G "uint32_t" 4 28 "int32" `838 
-D G "INT8_MAX" 4 37 " (127)"
-D G "INT8_MIN" 4 38 " (-128)"
-D G "UINT8_MAX" 4 39 " (255)"
-D G "INT16_MAX" 4 41 " (32767)"
-D G "INT16_MIN" 4 42 " (-32768)"
-D G "UINT16_MAX" 4 43 " (65535)"
-D G "INT32_MAX" 4 45 " (2147483647)"
-D G "INT32_MIN" 4 46 " (-2147483648)"
-D G "UINT32_MAX" 4 47 " (4294967295)"
-C L "jump_to_isr" 4 2 1 "FUNCTION"
-T G "int_least8_t" 4 61 "sint8" `839 
-T G "uint_least8_t" 4 62 "int8" `840 
-T G "int_least16_t" 4 63 "sint16" `841 
-T G "uint_least16_t" 4 64 "int16" `842 
-T G "int_least32_t" 4 65 "sint32" `843 
-T G "uint_least32_t" 4 66 "int32" `844 
-D G "INT_LEAST8_MAX" 4 75 " (127)"
-D G "INT_LEAST8_MIN" 4 76 " (-128)"
-D G "UINT_LEAST8_MAX" 4 77 " (255)"
-D G "INT_LEAST16_MAX" 4 79 " (32767)"
-D G "INT_LEAST16_MIN" 4 80 " (-32768)"
-D G "UINT_LEAST16_MAX" 4 81 " (65535)"
-D G "INT_LEAST32_MAX" 4 83 " (2147483647)"
-D G "INT_LEAST32_MIN" 4 84 " (-2147483648)"
-D G "UINT_LEAST32_MAX" 4 85 " (4294967295)"
-C L "jump_to_isr" 4 2 1 "FUNCTION"
-T G "int_fast8_t" 4 112 "sint8" `845 
-T G "uint_fast8_t" 4 113 "int8" `846 
-D G "INT_FAST8_MAX" 4 114 " (127)"
-D G "INT_FAST8_MIN" 4 115 " (-128)"
-D G "UINT_FAST8_MAX" 4 116 " (255)"
-T G "int_fast16_t" 4 117 "sint16" `847 
-T G "uint_fast16_t" 4 118 "int16" `848 
-T G "int_fast32_t" 4 121 "sint32" `849 
-T G "uint_fast32_t" 4 122 "int32" `850 
-D G "INT_FAST16_MAX" 4 124 " (32767)"
-D G "INT_FAST16_MIN" 4 125 " (-32768)"
-D G "UINT_FAST16_MAX" 4 126 " (65535)"
-D G "INT_FAST32_MAX" 4 128 " (2147483647)"
-D G "INT_FAST32_MIN" 4 129 " (-2147483648)"
-D G "UINT_FAST32_MAX" 4 130 " (4294967295)"
-C L "jump_to_isr" 4 2 1 "FUNCTION"
-T G "uintptr_t" 4 148 "int16" `851 
-T G "intptr_t" 4 149 "sint16" `852 
-D G "INT8_C" 4 152 "(val) ((int8_t)val)"
-D G "UINT8_C" 4 153 "(val) ((uint8_t)val)"
-D G "INT16_C" 4 154 "(val) ((int16_t)val)"
-D G "UINT16_C" 4 155 "(val) ((uint16_t)val)"
-D G "INT32_C" 4 156 "(val) ((int32_t)val)"
-D G "UINT32_C" 4 157 "(val) ((uint32_t)val)"
-C L "jump_to_isr" 4 2 3 "FUNCTION"
-T G "intmax_t" 4 181 "sint32" `853 
-T G "uintmax_t" 4 182 "int32" `854 
-D G "INTMAXN_MAX" 4 184 " (2147483647)"
-D G "INTMAXN_MIN" 4 185 " (-2147483648)"
-D G "UINTMAXN_MAX" 4 186 " (4294967295)"
-D G "INTMAX_C" 4 188 "(value) ((signed int32)val)"
-D G "UINTMAX_C" 4 189 "(value) ((unsigned int32)val)"
-D G "LCD_HIGH_TIME" 1 26 "60"
-D G "LCD_LOW_TIME" 1 27 "20"
-D G "TIMER1_PREVALUE" 1 28 "53036" "50ms for prescale 4"
-D G "PIR" 1 30 "RB1"
-D G "IR1" 1 31 "RB2"
-D G "IR2" 1 32 "RB3"
-D G "LIGHT_PIN" 1 33 "PIN_C0"
-D G "LED_IN_PIN" 1 34 "PIN_C1"
-D G "LED_OUT_PIN" 1 35 "PIN_C2"
-D G "LIGHT_CONTROL" 1 36 "RC0"
-D G "LED_IN" 1 37 "RC1"
-D G "LED_OUT" 1 38 "RC2"
-D G "LIGHT" 1 39 "RB0"
-D G "MENU" 1 40 "RB4"
-D G "UP" 1 41 "RB5"
-D G "DOWN" 1 42 "RB6"
-D G "ENTER" 1 43 "RB7"
-E G "manual" 1 45 "0" `865 
-E G "set_time" 1 45 "1" `866 
-E G "automatic" 1 45 "2" `867 
-E G "night" 1 45 "3" `868 
-T G "mode_enum" 1 45 "" `869 
-E G "set_night_mode_time" 1 49 "0" `871 
-E G "set_current_time" 1 50 "1" `872 
-T G "set_time_type_enum" 1 50 "" `873 
-E G "choose_type_st" 1 54 "0" `875 
-E G "set_time_st" 1 55 "1" `876 
-T G "set_time_stage_enum" 1 55 "" `877 
-E G "set_hour" 1 59 "0" `879 
-E G "set_minute" 1 60 "1" `880 
-E G "set_second" 1 61 "2" `881 
-T G "set_current_time_stage_enum" 1 61 "" `882 
-E G "set_start_hour" 1 65 "0" `884 
-E G "set_start_minute" 1 66 "1" `885 
-E G "set_end_hour" 1 67 "2" `886 
-E G "set_end_minute" 1 68 "3" `887 
-E G "set_state" 1 69 "4" `888 
-T G "set_nm_time_stage_enum" 1 69 "" `889 
-T G "time" 1 75 "{int8_t hour,int8_t minute,int8_t second}" `894 
-T G "timer" 1 83 "{int8_t start_hour,int8_t start_minute,int8_t end_hour,int8_t end_minute,int1 state}" `901  "Prototype"
-F N "check_in_out" 1 86 ""
-f G "check_in_out" 1 86 "void()" `902 
-F N "up_handler" 1 87 ""
-f G "up_handler" 1 87 "void()" `903 
-F N "down_handler" 1 88 ""
-f G "down_handler" 1 88 "void()" `904 
-F N "enter_handler" 1 89 ""
-f G "enter_handler" 1 89 "void()" `905 
-F N "display_manual_mode" 1 90 ""
-f G "display_manual_mode" 1 90 "void()" `906 
-F N "display_automatic_mode" 1 91 ""
-f G "display_automatic_mode" 1 91 "void()" `907 
-F N "display_night_mode" 1 92 ""
-f G "display_night_mode" 1 92 "void()" `908 
-F N "display_set_time_mode" 1 93 ""
-f G "display_set_time_mode" 1 93 "void()" `909 
-F N "display_set_current_time" 1 94 ""
-f G "display_set_current_time" 1 94 "void()" `910 
-F N "display_set_night_mode_time" 1 95 ""
-f G "display_set_night_mode_time" 1 95 "void()" `911 
-F N "read_night_timer_data" 1 96 ""
-f G "read_night_timer_data" 1 96 "void()" `912 
-F N "write_night_timer_data" 1 97 ""
-f G "write_night_timer_data" 1 97 "void()" `913  "MAIN_H *"
-D G "MAX_X" 5 34 "20"
-D G "MAX_Y" 5 35 "4"
-D G "LCD_DB4" 5 37 "PIN_D4"
-D G "LCD_DB5" 5 38 "PIN_D5"
-D G "LCD_DB6" 5 39 "PIN_D6"
-D G "LCD_DB7" 5 40 "PIN_D7"
-D G "LCD_RS" 5 42 "PIN_E0"
-D G "LCD_RW" 5 43 "PIN_E1"
-D G "LCD_E" 5 44 "PIN_E2"
-D G "USE_RW_PIN" 5 68 "1"
-D G "LCD_LINE_1_ADDRESS" 5 72 "0x00"
-D G "LCD_LINE_2_ADDRESS" 5 73 "0x40"
-D G "LCD_LINE_3_ADDRESS" 5 74 "0x14"
-D G "LCD_LINE_4_ADDRESS" 5 75 "0x54"
-D G "lcd_type" 5 89 "2" "0=5x7, 1=5x10, 2=2 lines(or more)"
-V G "lcd_line" 5 92 "int8" `914 
-V G "LCD_INIT_STRING" 5 94 "[4]" `916 
-C L "write_night_timer_data" 5 2 1 "FUNCTION"
-C L "write_night_timer_data" 5 2 1 "FUNCTION"
-C L "write_night_timer_data" 5 2 1 "FUNCTION"
-C L "write_night_timer_data" 5 2 1 "FUNCTION"
-F N "lcd_send_nibble" 5 104 ""
-V L "nibble" 5 104 "int8" `919 
-F G "lcd_send_nibble" 5 105 "void(int8 nibble)" `918  "Note:  !! converts an integer expression"
-C L "lcd_send_nibble" 5 2 1 "FUNCTION"
-C L "lcd_read_nibble" 5 2 4 "FUNCTION"
-F N "lcd_read_nibble" 5 126 ""
-F G "lcd_read_nibble" 5 127 "int8()" `920 
-V L "retval" 5 128 "int8" `921  "Create bit variables so that we can easily set"
-C L "lcd_read_nibble" 5 2 1 "FUNCTION"
-C L "lcd_read_byte" 5 2 1 "FUNCTION"
-F N "lcd_read_byte" 5 157 ""
-F G "lcd_read_byte" 5 158 "int8()" `926 
-V L "low" 5 159 "int8" `927 
-V L "high" 5 160 "int8" `928 
-C L "lcd_send_byte" 5 2 1 "FUNCTION"
-F N "lcd_send_byte" 5 175 ""
-V L "address" 5 175 "int8" `930 
-V L "n" 5 175 "int8" `931 
-F G "lcd_send_byte" 5 176 "void(int8 address,int8 n)" `929 
-F N "lcd_init" 5 204 ""
-F G "lcd_init" 5 205 "void()" `932 
-V L "i" 5 206 "int8" `933 
-C L "lcd_init" 5 2 4 "FUNCTION"
-C L "lcd_init" 5 2 6 "FUNCTION"
-F N "lcd_gotoxy" 5 251 ""
-V L "x" 5 251 "int8" `935 
-V L "y" 5 251 "int8" `936 
-F G "lcd_gotoxy" 5 252 "void(int8 x,int8 y)" `934 
-V L "address" 5 253 "int8" `937 
-F N "lcd_putc" 5 285 ""
-V L "c" 5 285 "int8" `939 
-F G "lcd_putc" 5 286 "void(int8 c)" `938 
-F N "lcd_prints" 5 310 ""
-V L "str" 5 310 "*int8" `941 
-F G "lcd_prints" 5 310 "void(*int8 str)" `940 
-F N "lcd_prints_delay" 5 315 ""
-V L "str" 5 315 "*int8" `947 
-V L "ms" 5 315 "int16" `948 
-F G "lcd_prints_delay" 5 315 "void(*int8 str,int16 ms)" `946 
-V L "sc" 5 316 "*int8" `949 
-F N "lcd_print_center" 5 323 ""
-V L "str" 5 323 "*int8" `951 
-V L "y" 5 323 "int8" `952 
-F G "lcd_print_center" 5 323 "void(*int8 str,int8 y)" `950 
-V L "sc" 5 324 "*int8" `953 
-V L "length" 5 326 "int8" `954 
-F N "lcd_getc" 5 333 ""
-V L "x" 5 333 "int8" `956 
-V L "y" 5 333 "int8" `957 
-F G "lcd_getc" 5 334 "int8(int8 x,int8 y)" `955 
-V L "value" 5 335 "int8" `958 
-C L "lcd_getc" 5 2 1 "FUNCTION"
-F N "bin2bcd" 6 1 ""
-V L "binary_value" 6 1 "int8" `960 
-f G "bin2bcd" 6 1 "int8(int8 binary_value)" `959 
-F N "bcd2bin" 6 2 ""
-V L "bcd_value" 6 2 "int8" `962 
-f G "bcd2bin" 6 2 "int8(int8 bcd_value)" `961 
-F N "ds1307_init" 6 4 ""
-F G "ds1307_init" 6 5 "void()" `963 
-V L "initsec" 6 6 "int8" `964 
-V L "initmin" 6 7 "int8" `965 
-V L "inithr" 6 8 "int8" `966 
-V L "initdow" 6 9 "int8" `967 
-V L "initday" 6 10 "int8" `968 
-V L "initmth" 6 11 "int8" `969 
-V L "inityear" 6 12 "int8" `970 
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-C L "ds1307_init" 6 14 1 "FUNCTION"
-F N "ds1307_set_date_time" 6 45 ""
-V L "day" 6 45 "int8" `972 
-V L "mth" 6 45 "int8" `973 
-V L "year" 6 45 "int8" `974 
-V L "dow" 6 45 "int8" `975 
-V L "hr" 6 45 "int8" `976 
-V L "min" 6 45 "int8" `977 
-V L "sec" 6 45 "int8" `978 
-F G "ds1307_set_date_time" 6 46 "void(int8 day,int8 mth,int8 year,int8 dow,int8 hr,int8 min,int8 sec)" `971 
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_date_time" 6 14 1 "FUNCTION"
-F N "ds1307_set_date" 6 63 ""
-V L "day" 6 63 "int8" `980 
-V L "mth" 6 63 "int8" `981 
-V L "year" 6 63 "int8" `982 
-V L "dow" 6 63 "int8" `983 
-F G "ds1307_set_date" 6 63 "void(int8 day,int8 mth,int8 year,int8 dow)" `979 
-C L "ds1307_set_date" 6 14 1 "FUNCTION"
-C L "ds1307_set_date" 6 14 1 "FUNCTION"
-C L "ds1307_set_date" 6 14 1 "FUNCTION"
-C L "ds1307_set_date" 6 14 1 "FUNCTION"
-C L "ds1307_set_date" 6 14 1 "FUNCTION"
-C L "ds1307_set_date" 6 14 1 "FUNCTION"
-F N "ds1307_set_time" 6 74 ""
-V L "hr" 6 74 "int8" `985 
-V L "min" 6 74 "int8" `986 
-V L "sec" 6 74 "int8" `987 
-F G "ds1307_set_time" 6 74 "void(int8 hr,int8 min,int8 sec)" `984 
-C L "ds1307_set_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_time" 6 14 1 "FUNCTION"
-C L "ds1307_set_time" 6 14 1 "FUNCTION"
-F N "ds1307_get_date" 6 88 ""
-V L "day" 6 88 "int8" `989 
-V L "mth" 6 88 "int8" `990 
-V L "year" 6 88 "int8" `991 
-V L "dow" 6 88 "int8" `992 
-F G "ds1307_get_date" 6 89 "void(int8 day,int8 mth,int8 year,int8 dow)" `988 
-C L "ds1307_get_date" 6 14 1 "FUNCTION"
-C L "ds1307_get_date" 6 14 1 "FUNCTION"
-C L "ds1307_get_date" 6 14 1 "FUNCTION"
-C L "ds1307_get_date" 6 14 1 "FUNCTION"
-C L "ds1307_get_date" 6 14 1 "FUNCTION"
-F N "ds1307_get_time" 6 102 ""
-V L "hr" 6 102 "int8" `994 
-V L "min" 6 102 "int8" `995 
-V L "sec" 6 102 "int8" `996 
-F G "ds1307_get_time" 6 103 "void(int8 hr,int8 min,int8 sec)" `993 
-C L "ds1307_get_time" 6 14 1 "FUNCTION"
-F N "ds1307_write_data" 6 116 ""
-V L "address" 6 116 "int8" `998 
-V L "data" 6 116 "int8" `999 
-F G "ds1307_write_data" 6 116 "void(int8 address,int8 data)" `997 
-F N "ds1307_read_data" 6 124 ""
-V L "address" 6 124 "int8" `1001 
-V L "data" 6 124 "int8" `1002 
-F G "ds1307_read_data" 6 124 "void(int8 address,int8 data)" `1000 
-F N "bin2bcd" 6 134 ""
-V L "binary_value" 6 134 "int8" `1004 
-F G "bin2bcd" 6 135 "int8(int8 binary_value)" `959 
-V L "temp" 6 136 "int8" `1003 
-V L "retval" 6 137 "int8" `1004 
-C L "bin2bcd" 6 14 2 "FUNCTION"
-C L "bin2bcd" 6 14 1 "FUNCTION"
-C L "bcd2bin" 6 14 1 "FUNCTION"
-F N "bcd2bin" 6 163 ""
-V L "bcd_value" 6 163 "int8" `1006 
-F G "bcd2bin" 6 164 "int8(int8 bcd_value)" `961 
-V L "temp" 6 165 "int8" `1005 
-C L "bcd2bin" 6 14 1 "FUNCTION"
-C L "bcd2bin" 6 14 1 "FUNCTION"
-C L "bcd2bin" 6 14 1 "FUNCTION"
-V G "mode" 0 12 "mode_enum" `1006 
-V G "previous_mode" 0 13 "mode_enum" `1007 
-V G "set_time_type" 0 14 "set_time_type_enum" `1008 
-V G "set_time_stage" 0 15 "set_time_stage_enum" `1009 
-V G "set_time_previous_stage" 0 16 "set_time_stage_enum" `1010 
-V G "set_nm_time_stage" 0 17 "set_nm_time_stage_enum" `1011 
-V G "set_current_time_stage" 0 18 "set_current_time_stage_enum" `1012 
-V G "set_current_time_previous_stage" 0 19 "set_current_time_stage_enum" `1013 
-V G "current_time" 0 20 "time" `1014 
-V G "night_timer" 0 21 "timer" `1015 
-V G "IR1_flag" 0 22 "int1" `1016 
-V G "IR2_flag" 0 23 "int1" `1017 
-V G "person" 0 24 "uint8_t" `1018 
-V G "led_in_count" 0 25 "uint8_t" `1019 
-V G "led_out_count" 0 26 "uint8_t" `1020 
-V G "MENU_count" 0 27 "uint8_t" `1021 
-V G "ENTER_count" 0 28 "uint8_t" `1022 
-V G "UP_count" 0 29 "uint8_t" `1023 
-V G "DOWN_count" 0 30 "uint8_t" `1024 
-V G "LIGHT_count" 0 31 "uint8_t" `1025 
-V G "PIR_state" 0 32 "int1" `1026 
-V G "PIR_count" 0 33 "uint8_t" `1027 
-F N "timer1_isr" 0 36 ""
-F G "timer1_isr" 0 36 "void()" `1028  "Reset timer 1"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-C L "timer1_isr" 0 40 1 "FUNCTION"
-F N "MAIN" 0 152 ""
-F G "MAIN" 0 152 "void()" `1032  "LCD"
-C L "MAIN" 0 40 2 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 3 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-C L "MAIN" 0 40 1 "FUNCTION"
-F N "check_in_out" 0 240 ""
-F G "check_in_out" 0 240 "void()" `902 
-F N "display_manual_mode" 0 261 ""
-F G "display_manual_mode" 0 261 "void()" `906 
-C L "display_manual_mode" 0 40 1 "FUNCTION"
-F N "display_automatic_mode" 0 285 ""
-F G "display_automatic_mode" 0 285 "void()" `907 
-C L "display_automatic_mode" 0 40 1 "FUNCTION"
-F N "display_night_mode" 0 309 ""
-F G "display_night_mode" 0 309 "void()" `908 
-C L "display_night_mode" 0 40 1 "FUNCTION"
-F N "display_set_time_mode" 0 333 ""
-F G "display_set_time_mode" 0 333 "void()" `909 
-F N "display_set_current_time" 0 363 ""
-F G "display_set_current_time" 0 363 "void()" `910 
-F N "display_set_night_mode_time" 0 396 ""
-F G "display_set_night_mode_time" 0 396 "void()" `911 
-F N "up_handler" 0 441 ""
-F G "up_handler" 0 441 "void()" `903 
-F N "down_handler" 0 488 ""
-F G "down_handler" 0 488 "void()" `904 
-F N "enter_handler" 0 536 ""
-F G "enter_handler" 0 536 "void()" `905 
-F N "write_night_timer_data" 0 560 ""
-F G "write_night_timer_data" 0 560 "void()" `913 
-F N "read_night_timer_data" 0 572 ""
-F G "read_night_timer_data" 0 572 "void()" `912 
-V L "state" 0 573 "int8" `1096 
+D G "PIR" 1 20 "RB1"
+D G "IR1" 1 21 "RB2"
+D G "IR2" 1 22 "RB3"
+D G "LIGHT_CONTROL" 1 23 "RC0"
+D G "LED_IN" 1 24 "RC1"
+D G "LED_OUT" 1 25 "RC2"
+D G "LIGHT" 1 26 "RB0"
+D G "MENU" 1 27 "RB4"
+D G "UP" 1 28 "RB5"
+D G "DOWN" 1 29 "RB6"
+D G "ENTER" 1 30 "RB7"
+E G "manual" 1 32 "0" `843 
+E G "set_time" 1 32 "1" `844 
+E G "automatic" 1 32 "2" `845 
+E G "night" 1 32 "3" `846 
+T G "mode_t" 1 32 "" `847 
+E G "choose_type" 1 35 "0" `850 
+E G "change_value" 1 35 "1" `851 
+E G "set_night_timer" 1 36 "0" `855 
+E G "set_current_time" 1 36 "1" `856 
+E G "set_start_hour" 1 40 "0" `860 
+E G "set_start_minute" 1 41 "1" `861 
+E G "set_end_hour" 1 42 "2" `862 
+E G "set_end_minute" 1 43 "3" `863 
+E G "set_state" 1 44 "4" `864 
+E G "set_hour" 1 49 "0" `869 
+E G "set_minute" 1 50 "1" `870 
+E G "set_second" 1 51 "2" `871 
+T G "setTime_t" 1 53 "{int1 ,int8 choose_type,int8 change_value,int1 stage,int1 prevStage,int1 ,int8 set_night_timer,int8 set_current_time,int1 type,{int8 ,int8 set_start_hour,int8 set_start_minute,int8 set_end_hour,int8 set_end_minute,int8 set_state, stage} nightTimer,{int8 ,int8 set_hour,int8 set_minute,int8 set_second, stage} currentTime}" `874 
+T G "time_t" 1 59 "{sint8 hour,sint8 minute,sint8 second}" `879 
+T G "timer_t" 1 67 "{sint8 startHour,sint8 startMinute,sint8 endHour,sint8 endMinute,int1 state}" `886  "Prototype"
+F N "checkInOut" 1 70 ""
+f G "checkInOut" 1 70 "void()" `887 
+F N "upHandler" 1 71 ""
+f G "upHandler" 1 71 "void()" `888 
+F N "downHandler" 1 72 ""
+f G "downHandler" 1 72 "void()" `889 
+F N "enterHandler" 1 73 ""
+f G "enterHandler" 1 73 "void()" `890 
+F N "longEnterHandler" 1 74 ""
+f G "longEnterHandler" 1 74 "void()" `891 
+F N "displayManualMode" 1 75 ""
+f G "displayManualMode" 1 75 "void()" `892 
+F N "displayAutomaticMode" 1 76 ""
+f G "displayAutomaticMode" 1 76 "void()" `893 
+F N "displayNightMode" 1 77 ""
+f G "displayNightMode" 1 77 "void()" `894 
+F N "displaySetTimeMode" 1 78 ""
+f G "displaySetTimeMode" 1 78 "void()" `895 
+F N "displaySetCurrentTime" 1 79 ""
+f G "displaySetCurrentTime" 1 79 "void()" `896 
+F N "displaySetNightTimer" 1 80 ""
+f G "displaySetNightTimer" 1 80 "void()" `897 
+F N "readNightTimerData" 1 81 ""
+f G "readNightTimerData" 1 81 "void()" `898 
+F N "writeNightTimerData" 1 82 ""
+f G "writeNightTimerData" 1 82 "void()" `899  "MAIN_H *"
+D G "MAX_X" 4 34 "20"
+D G "MAX_Y" 4 35 "4"
+D G "LCD_DB4" 4 37 "PIN_D4"
+D G "LCD_DB5" 4 38 "PIN_D5"
+D G "LCD_DB6" 4 39 "PIN_D6"
+D G "LCD_DB7" 4 40 "PIN_D7"
+D G "LCD_RS" 4 42 "PIN_E0"
+D G "LCD_RW" 4 43 "PIN_E1"
+D G "LCD_E" 4 44 "PIN_E2"
+D G "USE_RW_PIN" 4 68 "1"
+D G "LCD_LINE_1_ADDRESS" 4 72 "0x00"
+D G "LCD_LINE_2_ADDRESS" 4 73 "0x40"
+D G "LCD_LINE_3_ADDRESS" 4 74 "0x14"
+D G "LCD_LINE_4_ADDRESS" 4 75 "0x54"
+D G "lcd_type" 4 89 "2" "0=5x7, 1=5x10, 2=2 lines(or more)"
+V G "lcd_line" 4 92 "int8" `900 
+V G "LCD_INIT_STRING" 4 94 "[4]" `902 
+C L "writeNightTimerData" 4 2 1 "FUNCTION"
+C L "writeNightTimerData" 4 2 1 "FUNCTION"
+C L "writeNightTimerData" 4 2 1 "FUNCTION"
+C L "writeNightTimerData" 4 2 1 "FUNCTION"
+F N "lcd_send_nibble" 4 104 ""
+V L "nibble" 4 104 "int8" `905 
+F G "lcd_send_nibble" 4 105 "void(int8 nibble)" `904  "Note:  !! converts an integer expression"
+C L "lcd_send_nibble" 4 2 1 "FUNCTION"
+C L "lcd_read_nibble" 4 2 4 "FUNCTION"
+F N "lcd_read_nibble" 4 126 ""
+F G "lcd_read_nibble" 4 127 "int8()" `906 
+V L "retval" 4 128 "int8" `907  "Create bit variables so that we can easily set"
+C L "lcd_read_nibble" 4 2 1 "FUNCTION"
+C L "lcd_read_byte" 4 2 1 "FUNCTION"
+F N "lcd_read_byte" 4 157 ""
+F G "lcd_read_byte" 4 158 "int8()" `912 
+V L "low" 4 159 "int8" `913 
+V L "high" 4 160 "int8" `914 
+C L "lcd_send_byte" 4 2 1 "FUNCTION"
+F N "lcd_send_byte" 4 175 ""
+V L "address" 4 175 "int8" `916 
+V L "n" 4 175 "int8" `917 
+F G "lcd_send_byte" 4 176 "void(int8 address,int8 n)" `915 
+F N "lcd_init" 4 204 ""
+F G "lcd_init" 4 205 "void()" `918 
+V L "i" 4 206 "int8" `919 
+C L "lcd_init" 4 2 4 "FUNCTION"
+C L "lcd_init" 4 2 6 "FUNCTION"
+F N "lcd_gotoxy" 4 251 ""
+V L "x" 4 251 "int8" `921 
+V L "y" 4 251 "int8" `922 
+F G "lcd_gotoxy" 4 252 "void(int8 x,int8 y)" `920 
+V L "address" 4 253 "int8" `923 
+F N "lcd_putc" 4 285 ""
+V L "c" 4 285 "int8" `925 
+F G "lcd_putc" 4 286 "void(int8 c)" `924 
+F N "lcd_prints" 4 310 ""
+V L "str" 4 310 "*int8" `927 
+F G "lcd_prints" 4 310 "void(*int8 str)" `926 
+F N "lcd_prints_delay" 4 315 ""
+V L "str" 4 315 "*int8" `933 
+V L "ms" 4 315 "int16" `934 
+F G "lcd_prints_delay" 4 315 "void(*int8 str,int16 ms)" `932 
+V L "sc" 4 316 "*int8" `935 
+F N "lcd_print_center" 4 323 ""
+V L "str" 4 323 "*int8" `937 
+V L "y" 4 323 "int8" `938 
+F G "lcd_print_center" 4 323 "void(*int8 str,int8 y)" `936 
+V L "sc" 4 324 "*int8" `939 
+V L "length" 4 326 "int8" `940 
+F N "lcd_getc" 4 333 ""
+V L "x" 4 333 "int8" `942 
+V L "y" 4 333 "int8" `943 
+F G "lcd_getc" 4 334 "int8(int8 x,int8 y)" `941 
+V L "value" 4 335 "int8" `944 
+C L "lcd_getc" 4 2 1 "FUNCTION"
+F N "bin2bcd" 5 1 ""
+V L "binary_value" 5 1 "int8" `946 
+f G "bin2bcd" 5 1 "int8(int8 binary_value)" `945 
+F N "bcd2bin" 5 2 ""
+V L "bcd_value" 5 2 "int8" `948 
+f G "bcd2bin" 5 2 "int8(int8 bcd_value)" `947 
+F N "ds1307_init" 5 4 ""
+F G "ds1307_init" 5 5 "void()" `949 
+V L "initsec" 5 6 "int8" `950 
+V L "initmin" 5 7 "int8" `951 
+V L "inithr" 5 8 "int8" `952 
+V L "initdow" 5 9 "int8" `953 
+V L "initday" 5 10 "int8" `954 
+V L "initmth" 5 11 "int8" `955 
+V L "inityear" 5 12 "int8" `956 
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+C L "ds1307_init" 5 14 1 "FUNCTION"
+F N "ds1307_set_date_time" 5 45 ""
+V L "day" 5 45 "int8" `958 
+V L "mth" 5 45 "int8" `959 
+V L "year" 5 45 "int8" `960 
+V L "dow" 5 45 "int8" `961 
+V L "hr" 5 45 "int8" `962 
+V L "min" 5 45 "int8" `963 
+V L "sec" 5 45 "int8" `964 
+F G "ds1307_set_date_time" 5 46 "void(int8 day,int8 mth,int8 year,int8 dow,int8 hr,int8 min,int8 sec)" `957 
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_date_time" 5 14 1 "FUNCTION"
+F N "ds1307_set_date" 5 63 ""
+V L "day" 5 63 "int8" `966 
+V L "mth" 5 63 "int8" `967 
+V L "year" 5 63 "int8" `968 
+V L "dow" 5 63 "int8" `969 
+F G "ds1307_set_date" 5 63 "void(int8 day,int8 mth,int8 year,int8 dow)" `965 
+C L "ds1307_set_date" 5 14 1 "FUNCTION"
+C L "ds1307_set_date" 5 14 1 "FUNCTION"
+C L "ds1307_set_date" 5 14 1 "FUNCTION"
+C L "ds1307_set_date" 5 14 1 "FUNCTION"
+C L "ds1307_set_date" 5 14 1 "FUNCTION"
+C L "ds1307_set_date" 5 14 1 "FUNCTION"
+F N "ds1307_set_time" 5 74 ""
+V L "hr" 5 74 "int8" `971 
+V L "min" 5 74 "int8" `972 
+V L "sec" 5 74 "int8" `973 
+F G "ds1307_set_time" 5 74 "void(int8 hr,int8 min,int8 sec)" `970 
+C L "ds1307_set_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_time" 5 14 1 "FUNCTION"
+C L "ds1307_set_time" 5 14 1 "FUNCTION"
+F N "ds1307_get_date" 5 88 ""
+V L "day" 5 88 "int8" `975 
+V L "mth" 5 88 "int8" `976 
+V L "year" 5 88 "int8" `977 
+V L "dow" 5 88 "int8" `978 
+F G "ds1307_get_date" 5 89 "void(int8 day,int8 mth,int8 year,int8 dow)" `974 
+C L "ds1307_get_date" 5 14 1 "FUNCTION"
+C L "ds1307_get_date" 5 14 1 "FUNCTION"
+C L "ds1307_get_date" 5 14 1 "FUNCTION"
+C L "ds1307_get_date" 5 14 1 "FUNCTION"
+C L "ds1307_get_date" 5 14 1 "FUNCTION"
+F N "ds1307_get_time" 5 102 ""
+V L "hr" 5 102 "int8" `980 
+V L "min" 5 102 "int8" `981 
+V L "sec" 5 102 "int8" `982 
+F G "ds1307_get_time" 5 103 "void(int8 hr,int8 min,int8 sec)" `979 
+C L "ds1307_get_time" 5 14 1 "FUNCTION"
+F N "ds1307_write_data" 5 116 ""
+V L "address" 5 116 "int8" `984 
+V L "data" 5 116 "int8" `985 
+F G "ds1307_write_data" 5 116 "void(int8 address,int8 data)" `983 
+F N "ds1307_read_data" 5 124 ""
+V L "address" 5 124 "int8" `987 
+V L "data" 5 124 "int8" `988 
+F G "ds1307_read_data" 5 124 "void(int8 address,int8 data)" `986 
+F N "bin2bcd" 5 134 ""
+V L "binary_value" 5 134 "int8" `990 
+F G "bin2bcd" 5 135 "int8(int8 binary_value)" `945 
+V L "temp" 5 136 "int8" `989 
+V L "retval" 5 137 "int8" `990 
+C L "bin2bcd" 5 14 2 "FUNCTION"
+C L "bin2bcd" 5 14 1 "FUNCTION"
+C L "bcd2bin" 5 14 1 "FUNCTION"
+F N "bcd2bin" 5 163 ""
+V L "bcd_value" 5 163 "int8" `992 
+F G "bcd2bin" 5 164 "int8(int8 bcd_value)" `947 
+V L "temp" 5 165 "int8" `991 
+C L "bcd2bin" 5 14 1 "FUNCTION"
+C L "bcd2bin" 5 14 1 "FUNCTION"
+C L "bcd2bin" 5 14 1 "FUNCTION"
+V G "mode" 0 12 "mode_t" `992 
+V G "prevMode" 0 13 "mode_t" `993 
+V G "setTime" 0 14 "setTime_t" `994 
+V G "hasChange" 0 15 "int1" `995 
+V G "currentTime" 0 16 "time_t" `996 
+V G "nightTimer" 0 17 "timer_t" `997 
+V G "IR1_flag" 0 18 "int1" `998 
+V G "IR2_flag" 0 19 "int1" `999 
+V G "person" 0 20 "sint8" `1000 
+V G "ledin_count" 0 21 "int8" `1001 
+V G "ledout_count" 0 22 "int8" `1002 
+V G "menu_count" 0 23 "int8" `1003 
+V G "enter_count" 0 24 "int8" `1004 
+V G "up_count" 0 25 "int8" `1005 
+V G "down_count" 0 26 "int8" `1006 
+V G "light_count" 0 27 "int8" `1007 
+V G "h_PIR_count" 0 28 "int8" `1008 
+V G "l_PIR_count" 0 29 "int8" `1009 
+V G "blink_state" 0 30 "int1" `1010 
+V G "blink_count" 0 31 "int8" `1011 
+F N "timer1_isr" 0 34 ""
+F G "timer1_isr" 0 34 "void()" `1012  "Reset timer 1"
+C L "timer1_isr" 0 38 3 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+C L "timer1_isr" 0 38 1 "FUNCTION"
+F N "MAIN" 0 168 ""
+F G "MAIN" 0 168 "void()" `1013  "Initalization"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 2 "FUNCTION"
+C L "MAIN" 0 38 6 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 2 "FUNCTION"
+V L "i" 0 203 "int8" `1018 
+C L "MAIN" 0 38 1 "FUNCTION"
+C L "MAIN" 0 38 1 "FUNCTION"
+F N "checkInOut" 0 268 ""
+F G "checkInOut" 0 268 "void()" `887 
+F N "displayManualMode" 0 300 ""
+F G "displayManualMode" 0 300 "void()" `892 
+F N "displayAutomaticMode" 0 324 ""
+F G "displayAutomaticMode" 0 324 "void()" `893 
+F N "displayNightMode" 0 348 ""
+F G "displayNightMode" 0 348 "void()" `894 
+F N "displaySetTimeMode" 0 372 ""
+F G "displaySetTimeMode" 0 372 "void()" `895  "Blink handler"
+F N "displaySetCurrentTime" 0 420 ""
+F G "displaySetCurrentTime" 0 420 "void()" `896 
+F N "displaySetNightTimer" 0 455 ""
+F G "displaySetNightTimer" 0 455 "void()" `897 
+F N "upHandler" 0 501 ""
+F G "upHandler" 0 501 "void()" `888 
+F N "downHandler" 0 549 ""
+F G "downHandler" 0 549 "void()" `889 
+F N "enterHandler" 0 597 ""
+F G "enterHandler" 0 597 "void()" `890 
+F N "longEnterHandler" 0 621 ""
+F G "longEnterHandler" 0 621 "void()" `891 
+F N "writeNightTimerData" 0 640 ""
+F G "writeNightTimerData" 0 640 "void()" `899 
+F N "readNightTimerData" 0 652 ""
+F G "readNightTimerData" 0 652 "void()" `898 
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 0

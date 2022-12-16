@@ -9,65 +9,72 @@
 #include "lcd2004.c"
 #include "ds1307.c"
 
-volatile mode_enum mode = manual;
-mode_enum previous_mode = manual;
-volatile set_time_type_enum set_time_type = set_night_mode_time;
-volatile set_time_stage_enum set_time_stage = choose_type_st;
-set_time_stage_enum set_time_previous_stage = choose_type_st;
-volatile set_nm_time_stage_enum set_nm_time_stage = set_start_hour;
-volatile set_current_time_stage_enum set_current_time_stage = set_hour;
-set_current_time_stage_enum set_current_time_previous_stage = set_hour;
-volatile time current_time;
-volatile timer night_timer;
-BOOLEAN IR1_flag = 0;
-BOOLEAN IR2_flag = 0;
-uint8_t person = 1;
-volatile uint8_t led_in_count = 0;
-volatile uint8_t led_out_count = 0;
-volatile uint8_t MENU_count = 0;
-volatile uint8_t ENTER_count = 0;
-volatile uint8_t UP_count = 0;
-volatile uint8_t DOWN_count = 0;
-volatile uint8_t LIGHT_count = 0;
-volatile BOOLEAN PIR_state = 1;
-volatile uint8_t PIR_count = 0;
+volatile mode_t mode = manual;
+mode_t prevMode = manual;
+volatile setTime_t setTime;
+volatile int1 hasChange = 0;
+volatile time_t currentTime;
+volatile timer_t nightTimer;
+int1 IR1_flag = 0;
+int1 IR2_flag = 0;
+signed int8 person = 1;
+volatile int8 ledin_count = 0;
+volatile int8 ledout_count = 0;
+volatile int8 menu_count = 0;
+volatile int8 enter_count = 0;
+volatile int8 up_count = 0;
+volatile int8 down_count = 0;
+volatile int8 light_count = 0;
+volatile int8 h_PIR_count = 0;
+volatile int8 l_PIR_count = 0;
+volatile int1 blink_state = 1;
+volatile int8 blink_count = 0;
 
 #INT_TIMER1
 void timer1_isr(void) {  
    // Reset timer 1
    clear_interrupt(INT_TIMER1);
-   set_timer1(TIMER1_PREVALUE);
+   set_timer1(3036);
    // just for testing
-   output_toggle(PIN_A0);
+   //output_toggle(PIN_A0);
    // Change mode (MENU is pushed)
    if (!MENU) {
-      MENU_count++;
-      if (MENU_count == 2) {
-         mode++;
-         if (mode > 3) mode = 0;
-         if (mode == set_time) {
-            set_time_type = set_night_mode_time;
-            set_time_stage = choose_type_st;
-            set_nm_time_stage = set_start_hour;
-            set_current_time_stage = set_hour;
-         };
+      menu_count++;
+      if (menu_count == 16) {
+         mode--;
+         if (mode > 3) mode = 3;
+         if (mode == set_time) {      
+            setTime.type = set_night_timer;
+            setTime.stage = choose_type;
+            setTime.nightTimer.stage = set_start_hour;
+            setTime.currentTime.stage = set_hour;
+         }
       }
    }
    else {
-       MENU_count = 0;
+      if (menu_count > 1 && menu_count < 16) {
+         mode++;
+         if (mode > 3) mode = 0;
+         if (mode == set_time) {
+            setTime.type = set_night_timer;
+            setTime.stage = choose_type;
+            setTime.nightTimer.stage = set_start_hour;
+            setTime.currentTime.stage = set_hour;
+         }
+      }
+      menu_count = 0;
    }
    
    // Manual mode (LIGHT is pushed)
    if (mode == manual) {
        if (!LIGHT)  {
-           LIGHT_count++;
-           if (LIGHT_count == 2) {
-               output_toggle(LIGHT_PIN);
-           }
+           light_count++;
        }
-       
        else {
-           LIGHT_count = 0;
+           if (light_count > 1) {
+               LIGHT_CONTROL = !LIGHT_CONTROL;
+           }
+           light_count = 0;
        }
    }
    
@@ -75,191 +82,223 @@ void timer1_isr(void) {
    if (mode == set_time) {
        // UP is pushed
        if (!UP) {
-           UP_count++;
-           if (UP_count == 2) {
-               up_handler();
-           }
-           else if (UP_count > 14 && UP_count % 3 == 0) {
-               up_handler();
-               DOWN_count--;
+           // stop blinking
+           blink_state = 1;
+           blink_count = 0;
+           //
+           up_count++;
+           if (up_count >= 16 && up_count % 4 == 0) {
+               upHandler();        
            }
        }
        else {
-           UP_count = 0;
+           if (up_count > 1 && up_count < 16) {
+               upHandler();
+           }
+           up_count = 0;
        }
        // DOWN is pushed
        if (!DOWN) {
-           DOWN_count++;
-           if (DOWN_count == 2) {
-               down_handler();
-           }
-           else if (DOWN_count > 14 && DOWN_count % 3 == 0) {
-               down_handler();
-               DOWN_count--;
+           // stop blinking
+           blink_state = 1;
+           blink_count = 0;
+           //
+           down_count++;
+           if (down_count >= 16 && down_count % 4 == 0) {
+               downHandler();        
            }
        }
        else {
-           DOWN_count = 0;
+           if (down_count > 1 && down_count < 16) {
+               downHandler();
+           }
+           down_count = 0;
        }
        // ENTER is pushed
        if (!ENTER)  {
-           ENTER_count++;
-           if (ENTER_count == 2) {
-               enter_handler();
+           enter_count++;
+           if (enter_count == 16) {
+               longEnterHandler();
            }
        }
-       else if (ENTER) {
-           ENTER_count = 0;
+       else {
+           if (enter_count > 1 && enter_count < 16) {
+               enterHandler();
+           }
+           enter_count = 0;
        }
    }
    
    // LED in-out
    if (!LED_IN) {
-       led_in_count++;
-       if (led_in_count > 20) {
-           output_high(LED_IN_PIN);
-           led_in_count = 0;
+       ledin_count++;
+       if (ledin_count > 20) {
+           LED_IN = 1;
+           ledin_count = 0;
        }
    } 
    if (!LED_OUT) {
-       led_out_count++;
-       if (led_out_count > 20) {
-           output_high(LED_OUT_PIN);
-           led_out_count = 0;
+       ledout_count++;
+       if (ledout_count > 20) {
+           LED_OUT = 1;
+           ledout_count = 0;
        }
    }
    // Night mode
    if (mode == night) {
-      if (PIR == PIR_state) {
-         PIR_count++;
-         if (PIR_count > 60) {
-            if (!PIR) {
-               output_high(LIGHT_PIN);
-            }
-            else {
-               output_low(LIGHT_PIN);
-            }
-            PIR_count--;
+      if (!PIR) {
+         l_PIR_count++;
+         h_PIR_count = 0;
+         if (l_PIR_count > 70) {
+            LIGHT_CONTROL = 1;
+            l_PIR_count--;
          }
       }
       else {
-         PIR_count = 0;
+         h_PIR_count++;
+         l_PIR_count = 0;
+         if (h_PIR_count > 120) {
+            LIGHT_CONTROL = 0;
+            h_PIR_count--;
+         }
       }
-      PIR_state = PIR;
    }
 }
 
 void main() {
-    // LCD
+   // Initalization
+   setTime.stage = choose_type;
+   setTime.prevStage = choose_type;
+   setTime.type = set_night_timer;
+   setTime.nightTimer.stage = set_start_hour;
+   setTime.currentTime.stage = set_hour;
+   // LCD
    lcd_init();
    lcd_putc('\f');   // Clear LCD display
    // DS1307
    ds1307_init();
-   ds1307_get_time(current_time.hour, current_time.minute, current_time.second);
-   night_timer.start_hour = 23;
-   night_timer.start_minute = 00;
-   night_timer.end_hour = 7;
-   night_timer.end_minute = 00;
-   night_timer.state = 1;
-   write_night_timer_data();
-   read_night_timer_data();
+   ds1307_get_time(currentTime.hour, currentTime.minute, currentTime.second);
+//!   nightTimer.startHour = 23;
+//!   nightTimer.startMinute = 00;
+//!   nightTimer.endHour = 7;
+//!   nightTimer.endMinute = 00;
+//!   nightTimer.state = 1;
+//!   writeNightTimerData();
+   readNightTimerData();
    // GPIO
    TRISB = 0xFF;
-   PORTB = 0xFF;
-   OUTPUT_LOW(LIGHT_PIN);
-   OUTPUT_HIGH(LED_IN_PIN);
-   OUTPUT_HIGH(LED_OUT_PIN);
+   TRISC &= 0xF8;
+   LIGHT_CONTROL = 0;
+   LED_IN = 1;
+   LED_OUT = 1;
    // Timer 1 interrupt
-   setup_timer_1 ( T1_INTERNAL | T1_DIV_BY_4 ); // Internal clock and prescaler 8                           
-   set_timer1(TIMER1_PREVALUE);                 // Preload value
+   setup_timer_1 ( T1_INTERNAL | T1_DIV_BY_4 ); // Internal clock and prescaler 4                           
+   set_timer1(3036);                 // Preload value
    clear_interrupt(INT_TIMER1);                 // Clear Timer1 interrupt flag bit
    enable_interrupts(INT_TIMER1);               // Enable Timer1 interrupt
    enable_interrupts(GLOBAL);                   // Enable global interrupts
    // Waiting for setup
-   // delay_ms(3000);
+   lcd_gotoxy(6, 2);
+   printf(lcd_putc, "Loading...");
+   for (int8 i = 0; i < 100; i++) {
+      lcd_gotoxy(9, 3);
+      printf(lcd_putc, "%2d%%", i);
+      delay_ms(20);
+   }
+   delay_ms(200);
+   lcd_putc('\f');
    while(TRUE) {
-      check_in_out();
-      if (mode == set_time) {
-         if (set_current_time_previous_stage != set_current_time_previous_stage) {
-            ds1307_set_time(current_time.hour, current_time.minute, current_time.second);
-            set_current_time_previous_stage = set_current_time_stage;
-         }
-         if (set_time_stage != set_time_previous_stage) {
-            // Clear LCD display when change set time stage
-            lcd_putc('\f');
-            // Store night timer data
-            if (set_time_type == set_current_time) {
-               write_night_timer_data();
-            }
-            set_time_previous_stage = set_time_stage;
-         }
-      }
-      else if (mode == automatic) {
-         if (person > 0) {
-            output_high(LIGHT_PIN);
-         }
-         else {
-            output_low(LIGHT_PIN);
-         }
-         if (night_timer.state) {
-            if (night_timer.start_hour == current_time.hour && night_timer.start_minute == current_time.minute) {
-               mode = night;
-            }
-         }
-      }
-      else if (mode == night) {
-         if (night_timer.state) {
-            if (night_timer.end_hour == current_time.hour && night_timer.end_minute == current_time.minute) {
-               mode = automatic;
-            }
-         }
-      }
-      ds1307_get_time(current_time.hour, current_time.minute, current_time.second);
+      checkInOut();
       // Clear LCD display when change mode
-      if (previous_mode != mode) {
+      if (prevMode != mode) {
          lcd_putc('\f');
-         previous_mode = mode;
+         prevMode = mode;
       }
       switch (mode) {
          case manual:
-            display_manual_mode();
+            ds1307_get_time(currentTime.hour, currentTime.minute, currentTime.second);
+            displayManualMode();
             break;
          case set_time:
-            display_set_time_mode();
+            if (setTime.stage != setTime.prevStage) {
+               // Clear LCD display when change set time stage
+               lcd_putc('\f');
+               setTime.prevStage = setTime.stage;
+            }
+            if (setTime.stage == change_value && hasChange) {
+               if (setTime.type == set_night_timer) {
+                  writeNightTimerData();
+               }
+               else {
+                  ds1307_set_time(currentTime.hour, currentTime.minute, currentTime.second);
+               }
+               hasChange = 0;
+            }
+            ds1307_get_time(currentTime.hour, currentTime.minute, currentTime.second);
+            displaySetTimeMode();
             break;
          case automatic:
-            display_automatic_mode();
+            if (person > 0) {
+               LIGHT_CONTROL = 1;
+            }
+            else {
+               LIGHT_CONTROL = 0;
+            }
+            if (nightTimer.state) {
+               if (nightTimer.startHour == currentTime.hour && nightTimer.startMinute == currentTime.minute) {
+                  mode = night;
+               }
+            }
+            ds1307_get_time(currentTime.hour, currentTime.minute, currentTime.second);
+            displayAutomaticMode();
             break;
          case night:
-            display_night_mode();
+            if (nightTimer.state) {
+               if (nightTimer.endHour == currentTime.hour && nightTimer.endMinute == currentTime.minute) {
+                  mode = automatic;
+               }
+            }
+            ds1307_get_time(currentTime.hour, currentTime.minute, currentTime.second);
+            displayNightMode();
             break;
       }
    }
 }
 
-void check_in_out() {
-    if (!IR1 && !IR1_flag) {
-      IR1_flag = 1;
-      if (!IR2_flag) {
-         person++;
-         output_low(LED_IN_PIN);
+void checkInOut() {
+   if (!IR1_flag && !IR2_flag) {
+      if (!IR1) {
+         IR1_flag = 1;
       }
-    }
-    if (!IR2 && !IR2_flag) {
-      IR2_flag = 1;
-      if (!IR1_flag) {
-         person--;
-         output_low(LED_OUT_PIN);
+      else if (!IR2) {
+         IR2_flag = 1;
       }
-    }
-    if (IR1 && IR2 && IR1_flag && IR2_flag) {
+   }
+   else {
+      if (IR1_flag) {
+         if (!IR2 && !IR2_flag) {
+            IR2_flag = 1;
+            person++;
+            LED_IN = 0;
+         }
+      }
+      else if (IR2_flag) {
+         if (!IR1 && !IR1_flag) {
+            IR1_flag = 1;
+            person--;
+            if (person < 0) person = 0;
+            LED_OUT = 0;
+         }
+      }
+   }
+   if (IR1 && IR2 && IR1_flag && IR2_flag) {
       IR1_flag = 0;
       IR2_flag = 0;
-    }
+   }
 }
 
-void display_manual_mode() {
-   lcd_gotoxy(4, 1);
+void displayManualMode() {
+   lcd_gotoxy(5, 1);
    printf(lcd_putc, "MANUAL MODE");
    lcd_gotoxy(1, 2);
    if (LIGHT_CONTROL) {
@@ -269,21 +308,21 @@ void display_manual_mode() {
       printf(lcd_putc, "LIGHT:OFF",);
    }
    lcd_gotoxy(12, 2);
-   if (night_timer.state) {
+   if (nightTimer.state) {
       printf(lcd_putc, "TIMER:ON ");
    }
    else {
       printf(lcd_putc, "TIMER:OFF");
    }
    lcd_gotoxy(7, 3);
-   printf(lcd_putc, "PERSON:%d", person);
+   printf(lcd_putc, "PERSON:%d ", person);
    lcd_gotoxy(15, 4);
-   printf(lcd_putc, "%02d:%02d", current_time.hour, current_time.minute);
-   //delay_ms(100);
+   printf(lcd_putc, "%02d:%02d", currentTime.hour, currentTime.minute);
+   delay_ms(10);
 }
 
-void display_automatic_mode() {
-   lcd_gotoxy(2, 1);
+void displayAutomaticMode() {
+   lcd_gotoxy(4, 1);
    printf(lcd_putc, "AUTOMATIC MODE");
    lcd_gotoxy(1, 2);
    if (LIGHT_CONTROL) {
@@ -293,21 +332,21 @@ void display_automatic_mode() {
       printf(lcd_putc, "LIGHT:OFF",);
    }
    lcd_gotoxy(12, 2);
-   if (night_timer.state) {
+   if (nightTimer.state) {
       printf(lcd_putc, "TIMER:ON ");
    }
    else {
       printf(lcd_putc, "TIMER:OFF");
    }
    lcd_gotoxy(7, 3);
-   printf(lcd_putc, "PERSON:%d", person);
-   lcd_gotoxy(1, 4);
-   printf(lcd_putc, "%02d:%02d:%02d", current_time.hour, current_time.minute, current_time.second);
-   //delay_ms(100);
+   printf(lcd_putc, "PERSON:%d ", person);     
+   lcd_gotoxy(15, 4);
+   printf(lcd_putc, "%02d:%02d", currentTime.hour, currentTime.minute);
+   delay_ms(10);
 }
 
-void display_night_mode() {
-   lcd_gotoxy(4, 1);
+void displayNightMode() {
+   lcd_gotoxy(6, 1);
    printf(lcd_putc, "NIGHT MODE");
    lcd_gotoxy(1, 2);
    if (LIGHT_CONTROL) {
@@ -317,271 +356,310 @@ void display_night_mode() {
       printf(lcd_putc, "LIGHT:OFF",);
    }
    lcd_gotoxy(12, 2);
-   if (night_timer.state) {
+   if (nightTimer.state) {
       printf(lcd_putc, "TIMER:ON ");
    }
    else {
       printf(lcd_putc, "TIMER:OFF");
    }
    lcd_gotoxy(7, 3);
-   printf(lcd_putc, "PERSON:%d", person);
+   printf(lcd_putc, "PERSON:%d ", person);
    lcd_gotoxy(15, 4);
-   printf(lcd_putc, "%02d:%02d", current_time.hour, current_time.minute);
-   //delay_ms(100);
+   printf(lcd_putc, "%02d:%02d", currentTime.hour, currentTime.minute);
+   delay_ms(10);
 }
 
-void display_set_time_mode() {
-   if (!set_time_stage) {
-      lcd_gotoxy(4, 1);
-      printf(lcd_putc, "SET TIME MODE");
-      lcd_gotoxy(4, 3);
-      printf(lcd_putc, "NIGHT MODE TIME");
-      lcd_gotoxy(5, 4);
-      printf(lcd_putc, "CURRENT TIME");
-      delay_ms(LCD_HIGH_TIME);
-
-      if (!set_time_type) {
-         lcd_gotoxy(4, 3);
-         printf(lcd_putc, "               ");
+void displaySetTimeMode() {
+   // Blink handler
+   if (blink_state) {
+      blink_count++;
+      if (blink_count == 50) {         
+         blink_state = 0;
+         blink_count = 0;
       }
-      else {
-         lcd_gotoxy(5, 4);
-         printf(lcd_putc, "            ");
-      }
-      delay_ms(LCD_LOW_TIME);
    }
    else {
-      if (!set_time_type) {
-         display_set_night_mode_time();
+      blink_count++;
+      if (blink_count == 30) {         
+         blink_state = 1;
+         blink_count = 0;
+      }
+   }
+   
+   if (!setTime.stage) {
+      if (blink_state) {
+         lcd_gotoxy(4, 1);
+         printf(lcd_putc, "SET TIME MODE");
+         lcd_gotoxy(5, 3);
+         printf(lcd_putc, "NIGHT TIMER");
+         lcd_gotoxy(5, 4);
+         printf(lcd_putc, "CURRENT TIME");
       }
       else {
-         display_set_current_time();
+         if (!setTime.type) {
+            lcd_gotoxy(5, 3);
+            printf(lcd_putc, "           ");
+         }
+         else {
+            lcd_gotoxy(5, 4);
+            printf(lcd_putc, "            ");
+         }
+      }
+   }
+   else {
+      if (!setTime.type) {
+         displaySetNightTimer();
+      }
+      else {
+         displaySetCurrentTime();
+      }
+   }
+   delay_ms(10);
+}
+
+void displaySetCurrentTime() {
+   if (blink_state) {
+      lcd_gotoxy(3, 1);
+      printf(lcd_putc, "SET CURRENT TIME");
+      lcd_gotoxy(1, 3);
+      printf(lcd_putc, "HOUR");
+      lcd_gotoxy(7, 3);
+      printf(lcd_putc, "MINUTE");
+      lcd_gotoxy(15, 3);
+      printf(lcd_putc, "SECOND");
+      lcd_gotoxy(2, 4);
+      printf(lcd_putc, "%02d", currentTime.hour);
+      lcd_gotoxy(9, 4);
+      printf(lcd_putc, "%02d", currentTime.minute);
+      lcd_gotoxy(17, 4);
+      printf(lcd_putc, "%02d", currentTime.second);
+   }
+   else {
+      switch (setTime.currentTime.stage) {
+         case set_hour:
+            lcd_gotoxy(2, 4);
+            printf(lcd_putc, "  ");
+            break;
+         case set_minute:
+            lcd_gotoxy(9, 4);
+            printf(lcd_putc, "  ");
+            break;
+         case set_second:
+            lcd_gotoxy(17, 4);
+            printf(lcd_putc, "  ");
+            break;
       }
    }
 }
 
-void display_set_current_time() {
-   lcd_gotoxy(3, 1);
-   printf(lcd_putc, "SET CURRENT TIME");
-   lcd_gotoxy(1, 3);
-   printf(lcd_putc, "HOUR");
-   lcd_gotoxy(7, 3);
-   printf(lcd_putc, "MINUTE");
-   lcd_gotoxy(15, 3);
-   printf(lcd_putc, "SECOND");
-   lcd_gotoxy(2, 4);
-   printf(lcd_putc, "%02d", current_time.hour);
-   lcd_gotoxy(9, 4);
-   printf(lcd_putc, "%02d", current_time.minute);
-   lcd_gotoxy(17, 4);
-   printf(lcd_putc, "%02d", current_time.second);
-   delay_ms(LCD_HIGH_TIME);
-   switch (set_current_time_stage) {
-      case set_hour:
-         lcd_gotoxy(2, 4);
-         printf(lcd_putc, "  ");
-         break;
-      case set_minute:
-         lcd_gotoxy(9, 4);
-         printf(lcd_putc, "  ");
-         break;
-      case set_second:
-         lcd_gotoxy(17, 4);
-         printf(lcd_putc, "  ");
-         break;
+void displaySetNightTimer() {
+   if (blink_state) {
+      lcd_gotoxy(3, 1);
+      printf(lcd_putc, "SET NIGHT TIMER");
+      lcd_gotoxy(1, 2);
+      printf(lcd_putc, "START");
+      lcd_gotoxy(15, 2);
+      printf(lcd_putc, "END");
+      lcd_gotoxy(1, 3);
+      printf(lcd_putc, "%02d:%02d", nightTimer.startHour, nightTimer.startMinute);
+      lcd_gotoxy(14, 3);
+      printf(lcd_putc, "%02d:%02d", nightTimer.endHour, nightTimer.endMinute);
+      lcd_gotoxy(8, 4);
+      printf(lcd_putc, "ON/OFF");
    }
-   delay_ms(LCD_LOW_TIME);
+   else {
+      switch (setTime.nightTimer.stage) {
+         case set_start_hour:
+            lcd_gotoxy(1, 3);
+            printf(lcd_putc, "  :%02d", nightTimer.startMinute);
+            break;
+         case set_start_minute:
+            lcd_gotoxy(1, 3);
+            printf(lcd_putc, "%02d:  ", nightTimer.startHour);
+            break;    
+         case set_end_hour:
+            lcd_gotoxy(14, 3);
+            printf(lcd_putc, "  :%02d", nightTimer.endMinute);
+            break;
+         case set_end_minute:
+            lcd_gotoxy(14, 3);
+            printf(lcd_putc, "%02d:  ", nightTimer.endHour);
+            break;  
+         case set_state:
+            lcd_gotoxy(8, 4);
+            if (nightTimer.state) {
+               printf(lcd_putc, "  /OFF");
+            }
+            else {
+               printf(lcd_putc, "ON/   ");
+            }
+            break;
+      }  
+   }
 }
 
-void display_set_night_mode_time() {
-   lcd_gotoxy(1, 1);
-   printf(lcd_putc, "SET NIGHT MODE TIME");
-   lcd_gotoxy(1, 2);
-   printf(lcd_putc, "START");
-   lcd_gotoxy(15, 2);
-   printf(lcd_putc, "END");
-   lcd_gotoxy(1, 3);
-   printf(lcd_putc, "%02d:%02d", night_timer.start_hour, night_timer.start_minute);
-   lcd_gotoxy(14, 3);
-   printf(lcd_putc, "%02d:%02d", night_timer.end_hour, night_timer.end_minute);
-   lcd_gotoxy(8, 4);
-   printf(lcd_putc, "ON/OFF");
-   delay_ms(LCD_HIGH_TIME);
-   
-   switch (set_nm_time_stage) {
-      case set_start_hour:
-         lcd_gotoxy(1, 3);
-         printf(lcd_putc, "  :%02d", night_timer.start_minute);
-         break;
-      case set_start_minute:
-         lcd_gotoxy(1, 3);
-         printf(lcd_putc, "%02d:  ", night_timer.start_hour);
-         break;    
-      case set_end_hour:
-         lcd_gotoxy(14, 3);
-         printf(lcd_putc, "  :%02d", night_timer.end_minute);
-         break;
-      case set_end_minute:
-         lcd_gotoxy(14, 3);
-         printf(lcd_putc, "%02d:  ", night_timer.end_hour);
-         break;  
-      case set_state:
-         lcd_gotoxy(8, 4);
-         if (night_timer.state) {
-            printf(lcd_putc, "  /OFF");
-         }
-         else {
-           printf(lcd_putc, "ON/   ");
-         }
-         break;
-   }
-   delay_ms(LCD_LOW_TIME);
-}
-
-void up_handler() {
-    if (set_time_stage == choose_type_st) {
-        set_time_type = ~set_time_type;
+void upHandler() {
+    hasChange = 1;
+    if (setTime.stage == choose_type) {
+        setTime.type = !setTime.type;
     }
     else {
-        if (set_time_type == set_night_mode_time) {
-            switch (set_nm_time_stage) {
+        if (setTime.type == set_night_timer) {
+            switch (setTime.nightTimer.stage) {
                case set_start_hour:
-                  night_timer.start_hour++;
-                  if (night_timer.start_hour > 23) night_timer.start_hour = 0;
+                  nightTimer.startHour++;
+                  if (nightTimer.startHour > 23) nightTimer.startHour = 0;
                   break;
                case set_start_minute:
-                  night_timer.start_minute++;
-                  if (night_timer.start_minute > 59) night_timer.start_minute = 0;
+                  nightTimer.startMinute++;
+                  if (nightTimer.startMinute > 59) nightTimer.startMinute = 0;
                   break;    
                case set_end_hour:
-                  night_timer.end_hour++;
-                  if (night_timer.end_hour > 23) night_timer.end_hour = 0;
+                  nightTimer.endHour++;
+                  if (nightTimer.endHour > 23) nightTimer.endHour = 0;
                   break;
                case set_end_minute:
-                  night_timer.end_minute++;
-                  if (night_timer.end_minute > 59) night_timer.end_minute = 0;
+                  nightTimer.endMinute++;
+                  if (nightTimer.endMinute > 59) nightTimer.endMinute = 0;
                   break;  
                case set_state:
-                  night_timer.state = ~night_timer.state;
+                  nightTimer.state = !nightTimer.state;
                   break;
              }
         }
         else {
-            switch (set_current_time_stage) {
+            switch (setTime.currentTime.stage) {
                case set_hour:
-                  current_time.hour++;
-                  if (current_time.hour > 23) current_time.hour = 0;
+                  currentTime.hour++;
+                  if (currentTime.hour > 23) currentTime.hour = 0;
                   break;
                case set_minute:
-                  current_time.minute++;
-                  if (current_time.minute > 59) current_time.minute = 0;
+                  currentTime.minute++;
+                  if (currentTime.minute > 59) currentTime.minute = 0;
                   break;
                case set_second:
-                  current_time.second++;
-                  if (current_time.second > 59) current_time.second = 0;
+                  currentTime.second++;
+                  if (currentTime.second > 59) currentTime.second = 0;
                   break;
              }
         }
     }
 }
 
-void down_handler() {
-    if (set_time_stage == choose_type_st) {
-        set_time_type = ~set_time_type;
+void downHandler() {
+    hasChange = 1;
+    if (setTime.stage == choose_type) {
+        setTime.type = !setTime.type;
     }
     else {
-        if (set_time_type == set_night_mode_time) {
-            switch (set_nm_time_stage) {
+        if (setTime.type == set_night_timer) {
+            switch (setTime.nightTimer.stage) {
                case set_start_hour:
-                  night_timer.start_hour--;
-                  if (night_timer.start_hour < 0) night_timer.start_hour = 23;
+                  nightTimer.startHour--;
+                  if (nightTimer.startHour < 0) nightTimer.startHour = 23;
                   break;
                case set_start_minute:
-                  night_timer.start_minute--;
-                  if (night_timer.start_minute < 0) night_timer.start_minute = 59;
+                  nightTimer.startMinute--;
+                  if (nightTimer.startMinute < 0) nightTimer.startMinute = 59;
                   break;    
                case set_end_hour:
-                  night_timer.end_hour--;
-                  if (night_timer.end_hour < 0) night_timer.end_hour = 23;
+                  nightTimer.endHour--;
+                  if (nightTimer.endHour < 0) nightTimer.endHour = 23;
                   break;
                case set_end_minute:
-                  night_timer.end_minute--;
-                  if (night_timer.end_minute < 0) night_timer.end_minute = 59;
+                  nightTimer.endMinute--;
+                  if (nightTimer.endMinute < 0) nightTimer.endMinute = 59;
                   break;  
                case set_state:
-                  night_timer.state = ~night_timer.state;
+                  nightTimer.state = !nightTimer.state;
                   break;
               }
         }
         else {
-            switch (set_current_time_stage) {
+            switch (setTime.currentTime.stage) {
                case set_hour:
-                  current_time.hour--;
-                  if (current_time.hour < 0) current_time.hour = 23;
+                  currentTime.hour--;
+                  if (currentTime.hour < 0) currentTime.hour = 23;
                   break;
                case set_minute:
-                  current_time.minute--;
-                  if (current_time.minute < 0) current_time.minute = 59;   
+                  currentTime.minute--;
+                  if (currentTime.minute < 0) currentTime.minute = 59;   
                   break;
                case set_second:
-                  current_time.second--;
-                  if (current_time.second < 0) current_time.second = 59;
-
+                  currentTime.second--;
+                  if (currentTime.second < 0) currentTime.second = 59;
                   break;
             }
         }
     }
 }
 
-void enter_handler() {
-    if (set_time_stage == choose_type_st) {
-        set_time_stage = set_time_st;
+void enterHandler() {
+    if (setTime.stage == choose_type) {
+        setTime.stage = change_value;
     }
     else {
-        if (set_time_type == set_night_mode_time) {
-            set_nm_time_stage++;
-            if (set_nm_time_stage > 4) {
-                set_time_stage = 0;
-                set_nm_time_stage = 0;
-                set_time_type = set_current_time;
+        if (setTime.type == set_night_timer) {
+            setTime.nightTimer.stage++;
+            if (setTime.nightTimer.stage > 4) {
+                setTime.stage = 0;
+                setTime.nightTimer.stage = 0;
+                setTime.type = set_current_time;
             }
         }
         else {
-            set_current_time_stage++;
-            if (set_current_time_stage > 3) {
-                set_time_stage = 0;
-                set_current_time_stage = 0;
-                set_time_type = set_night_mode_time;
+            setTime.currentTime.stage++;
+            if (setTime.currentTime.stage > 2) {
+                setTime.stage = 0;
+                setTime.currentTime.stage = 0;
+                setTime.type = set_night_timer;
             }
         }
     }
 }
 
-void write_night_timer_data() {
+void longEnterHandler() {
+   if (setTime.stage == change_value) {
+        if (setTime.type == set_night_timer) {
+            setTime.nightTimer.stage--;
+            if (setTime.nightTimer.stage > 4) {
+                setTime.nightTimer.stage = 0;
+                setTime.stage = choose_type;             
+            }
+        }
+        else {
+            setTime.currentTime.stage--;
+            if (setTime.currentTime.stage > 2) {
+                setTime.currentTime.stage = 0;
+                setTime.stage = choose_type;
+            }
+        }
+    }
+}
+
+void writeNightTimerData() {
    i2c_start();
    i2c_write(0xD0);          
    i2c_write(0x08);              
-   i2c_write(night_timer.start_hour);      
-   i2c_write(night_timer.start_minute);      
-   i2c_write(night_timer.end_hour);       
-   i2c_write(night_timer.end_minute);      
-   i2c_write(night_timer.state);     
+   i2c_write(nightTimer.startHour);      
+   i2c_write(nightTimer.startMinute);      
+   i2c_write(nightTimer.endHour);       
+   i2c_write(nightTimer.endMinute);      
+   i2c_write(nightTimer.state);     
    i2c_stop();
 }
 
-void read_night_timer_data() {
-   BYTE state;
+void readNightTimerData() {
    i2c_start();
    i2c_write(0xD0);
    i2c_write(0x08); 
    i2c_start();
    i2c_write(0xD1);
-   night_timer.start_hour  = i2c_read();   
-   night_timer.start_minute  = i2c_read();  
-   night_timer.end_hour  = i2c_read(); 
-   night_timer.end_minute = i2c_read();
-   night_timer.state = i2c_read();
+   nightTimer.startHour  = i2c_read();   
+   nightTimer.startMinute  = i2c_read();  
+   nightTimer.endHour  = i2c_read(); 
+   nightTimer.endMinute = i2c_read();
+   nightTimer.state = i2c_read();
    i2c_stop();
-   night_timer.state = state & 1;
 }
 
