@@ -1,7 +1,8 @@
+F N "readNightTimerData" 0 652 ""
 D G "__PCM__" 0 667 ""5.109""
 D G "__DEVICE__" 0 667 "877"
-D G "__DATE__" 0 667 ""15-Dec-22""
-D G "__TIME__" 0 667 ""01:13:23""
+D G "__DATE__" 0 667 ""26-Dec-22""
+D G "__TIME__" 0 667 ""21:13:25""
 D G "_UNICODE" 0 667 ""?""
 D G "__EVAL" 0 667 ""?"" "* File:   main.c"
 C G "" 0 1 1 "*"
@@ -841,9 +842,9 @@ F B "i2c_transfer_in" 2 546 "int8(int8 stream,int8 address,*int8 rData,int8 rCou
 F N "spi_xfer" 2 549 ""
 F B "spi_xfer" 2 549 "int8()" `502 
 F N "spi_xfer" 2 550 ""
-f G "spi_xfer" 2 550 "int16(int8 data)" `503 
+f G "spi_xfer" 2 550 "int16()" `503 
 F N "spi_xfer" 2 551 ""
-f G "spi_xfer" 2 551 "int32(int8 data)" `503 
+f G "spi_xfer" 2 551 "int32()" `503 
 F N "spi_xfer" 2 552 ""
 V L "data" 2 552 "int8" `504 
 F B "spi_xfer" 2 552 "int8(int8 data)" `503 
@@ -923,18 +924,18 @@ F B "spi_prewrite" 2 571 "void(int8 ,int32 data)" `556
 F N "spi_xfer_in" 2 572 ""
 F B "spi_xfer_in" 2 572 "int8()" `559 
 F N "spi_xfer_in" 2 573 ""
-f G "spi_xfer_in" 2 573 "int16(int8 bits)" `560 
+f G "spi_xfer_in" 2 573 "int16()" `560 
 F N "spi_xfer_in" 2 574 ""
-f G "spi_xfer_in" 2 574 "int32(int8 bits)" `560 
+f G "spi_xfer_in" 2 574 "int32()" `560 
 F N "spi_xfer_in" 2 575 ""
 V L "bits" 2 575 "int8" `561 
 F B "spi_xfer_in" 2 575 "int8(int8 bits)" `560 
 F N "spi_xfer_in" 2 576 ""
 V L "bits" 2 576 "int8" `563 
-f G "spi_xfer_in" 2 576 "int16(int8 bits,int8 bits)" `562 
+f G "spi_xfer_in" 2 576 "int16(int8 bits)" `562 
 F N "spi_xfer_in" 2 577 ""
 V L "bits" 2 577 "int8" `563 
-f G "spi_xfer_in" 2 577 "int32(int8 bits,int8 bits)" `562 
+f G "spi_xfer_in" 2 577 "int32(int8 bits)" `562 
 F N "spi_xfer_in" 2 578 ""
 V L "stream" 2 578 "int8" `563 
 V L "bits" 2 578 "int8" `564 
@@ -942,11 +943,11 @@ F B "spi_xfer_in" 2 578 "int8(int8 stream,int8 bits)" `562
 F N "spi_xfer_in" 2 579 ""
 V L "stream" 2 579 "int8" `563 
 V L "bits" 2 579 "int8" `567 
-f G "spi_xfer_in" 2 579 "int16(int8 stream,int8 bits,int16 count)" `565 
+f G "spi_xfer_in" 2 579 "int16(int8 stream,int8 bits)" `565 
 F N "spi_xfer_in" 2 580 ""
 V L "stream" 2 580 "int8" `563 
 V L "bits" 2 580 "int8" `567 
-f G "spi_xfer_in" 2 580 "int32(int8 stream,int8 bits,int16 count)" `565 
+f G "spi_xfer_in" 2 580 "int32(int8 stream,int8 bits)" `565 
 F N "spi_transfer" 2 581 ""
 V L "wData" 2 581 "*int8" `566 
 V L "rData" 2 581 "*int8" `567 
@@ -1011,25 +1012,25 @@ F B "rtos_overrun" 2 600 "int8(int8 task)" `606
 F N "rtos_stats" 2 601 ""
 V L "task" 2 601 "int8" `609 
 V L "stat" 2 601 "*int8" `610 
-F B "rtos_stats" 2 601 "void(int8 task,*int8 stat)" `608  "#use timer() Prototypes:"
+F B "rtos_stats" 2 601 "void(int8 task,*int8 stat,int8 )" `608  "#use timer() Prototypes:"
 F N "get_ticks" 2 604 ""
 F B "get_ticks" 2 604 "int8()" `611 
 F N "get_ticks" 2 605 ""
-f G "get_ticks" 2 605 "int16(int8 stream)" `612 
+f G "get_ticks" 2 605 "int16()" `612 
 F N "get_ticks" 2 606 ""
-f G "get_ticks" 2 606 "int32(int8 stream)" `612 
+f G "get_ticks" 2 606 "int32()" `612 
 F N "get_ticks" 2 607 ""
 V L "stream" 2 607 "int8" `613 
-F B "get_ticks" 2 607 "int8(int8 stream)" `612 
+F B "get_ticks" 2 607 "int8(int8 stream,int8 )" `612 
 F N "get_ticks" 2 608 ""
 V L "stream" 2 608 "int8" `615 
-f G "get_ticks" 2 608 "int16(int8 stream)" `614 
+f G "get_ticks" 2 608 "int16(int8 stream,int8 )" `614 
 F N "get_ticks" 2 609 ""
 V L "stream" 2 609 "int8" `615 
-f G "get_ticks" 2 609 "int32(int8 stream)" `614 
+f G "get_ticks" 2 609 "int32(int8 stream,int8 )" `614 
 F N "set_ticks" 2 610 ""
 V L "value" 2 610 "int8" `615 
-F B "set_ticks" 2 610 "void(int8 value)" `614 
+F B "set_ticks" 2 610 "void(int8 value,int8 )" `614 
 F N "set_ticks" 2 611 ""
 V L "value" 2 611 "int16" `617 
 F B "set_ticks" 2 611 "void(int16 value)" `616 
@@ -1125,7 +1126,7 @@ F B "read_eeprom" 2 667 "int8(int8 address)" `676
 F N "write_eeprom" 2 668 ""
 V L "address" 2 668 "int8" `679 
 V L "value" 2 668 "int8" `680 
-F B "write_eeprom" 2 668 "void(int8 address,int8 value)" `678  "INT"
+F B "write_eeprom" 2 668 "void(int8 address,int8 value,int8 nibble)" `678  "INT"
 c L "write_eeprom" 2 1 4 "FUNCTION"
 F N "enable_interrupts" 2 675 ""
 V L "interrupt" 2 675 "int32" `682 
@@ -1418,40 +1419,32 @@ F G "ds1307_read_data" 5 124 "void(int8 address,int8 data)" `986
 F N "bin2bcd" 5 134 ""
 V L "binary_value" 5 134 "int8" `990 
 F G "bin2bcd" 5 135 "int8(int8 binary_value)" `945 
-V L "temp" 5 136 "int8" `989 
-V L "retval" 5 137 "int8" `990 
-C L "bin2bcd" 5 14 2 "FUNCTION"
-C L "bin2bcd" 5 14 1 "FUNCTION"
 C L "bcd2bin" 5 14 1 "FUNCTION"
-F N "bcd2bin" 5 163 ""
-V L "bcd_value" 5 163 "int8" `992 
-F G "bcd2bin" 5 164 "int8(int8 bcd_value)" `947 
-V L "temp" 5 165 "int8" `991 
-C L "bcd2bin" 5 14 1 "FUNCTION"
-C L "bcd2bin" 5 14 1 "FUNCTION"
-C L "bcd2bin" 5 14 1 "FUNCTION"
-V G "mode" 0 12 "mode_t" `992 
-V G "prevMode" 0 13 "mode_t" `993 
-V G "setTime" 0 14 "setTime_t" `994 
-V G "hasChange" 0 15 "int1" `995 
-V G "currentTime" 0 16 "time_t" `996 
-V G "nightTimer" 0 17 "timer_t" `997 
-V G "IR1_flag" 0 18 "int1" `998 
-V G "IR2_flag" 0 19 "int1" `999 
-V G "person" 0 20 "sint8" `1000 
-V G "ledin_count" 0 21 "int8" `1001 
-V G "ledout_count" 0 22 "int8" `1002 
-V G "menu_count" 0 23 "int8" `1003 
-V G "enter_count" 0 24 "int8" `1004 
-V G "up_count" 0 25 "int8" `1005 
-V G "down_count" 0 26 "int8" `1006 
-V G "light_count" 0 27 "int8" `1007 
-V G "h_PIR_count" 0 28 "int8" `1008 
-V G "l_PIR_count" 0 29 "int8" `1009 
-V G "blink_state" 0 30 "int1" `1010 
-V G "blink_count" 0 31 "int8" `1011 
+F N "bcd2bin" 5 141 ""
+V L "bcd_value" 5 141 "int8" `993 
+F G "bcd2bin" 5 142 "int8(int8 bcd_value)" `947 
+V G "mode" 0 12 "mode_t" `995 
+V G "prevMode" 0 13 "mode_t" `996 
+V G "setTime" 0 14 "setTime_t" `997 
+V G "hasChange" 0 15 "int1" `998 
+V G "currentTime" 0 16 "time_t" `999 
+V G "nightTimer" 0 17 "timer_t" `1000 
+V G "IR1_flag" 0 18 "int1" `1001 
+V G "IR2_flag" 0 19 "int1" `1002 
+V G "person" 0 20 "sint8" `1003 
+V G "ledin_count" 0 21 "int8" `1004 
+V G "ledout_count" 0 22 "int8" `1005 
+V G "menu_count" 0 23 "int8" `1006 
+V G "enter_count" 0 24 "int8" `1007 
+V G "up_count" 0 25 "int8" `1008 
+V G "down_count" 0 26 "int8" `1009 
+V G "light_count" 0 27 "int8" `1010 
+V G "h_PIR_count" 0 28 "int8" `1011 
+V G "l_PIR_count" 0 29 "int8" `1012 
+V G "blink_state" 0 30 "int1" `1013 
+V G "blink_count" 0 31 "int8" `1014 
 F N "timer1_isr" 0 34 ""
-F G "timer1_isr" 0 34 "void()" `1012  "Reset timer 1"
+F G "timer1_isr" 0 34 "void()" `1015  "Reset timer 1"
 C L "timer1_isr" 0 38 3 "FUNCTION"
 C L "timer1_isr" 0 38 1 "FUNCTION"
 C L "timer1_isr" 0 38 1 "FUNCTION"
@@ -1463,7 +1456,7 @@ C L "timer1_isr" 0 38 1 "FUNCTION"
 C L "timer1_isr" 0 38 1 "FUNCTION"
 C L "timer1_isr" 0 38 1 "FUNCTION"
 F N "MAIN" 0 168 ""
-F G "MAIN" 0 168 "void()" `1013  "Initalization"
+F G "MAIN" 0 168 "void()" `1016  "Initalization"
 C L "MAIN" 0 38 1 "FUNCTION"
 C L "MAIN" 0 38 2 "FUNCTION"
 C L "MAIN" 0 38 6 "FUNCTION"
@@ -1474,7 +1467,7 @@ C L "MAIN" 0 38 1 "FUNCTION"
 C L "MAIN" 0 38 1 "FUNCTION"
 C L "MAIN" 0 38 1 "FUNCTION"
 C L "MAIN" 0 38 2 "FUNCTION"
-V L "i" 0 203 "int8" `1018 
+V L "i" 0 203 "int8" `1021 
 C L "MAIN" 0 38 1 "FUNCTION"
 C L "MAIN" 0 38 1 "FUNCTION"
 F N "checkInOut" 0 268 ""

@@ -109,22 +109,22 @@
 045     h_PIR_count
 046     l_PIR_count
 047     blink_count
-048     ds1307_read_data.address
 048     MAIN.i
+048     ds1307_read_data.address
 049     lcd_init.i
-049     @PRINTF_D_924.P1
-049     ds1307_init.initsec
 049     @PRINTF_D0_924.P1
-049     @PSTRINGCN7_924.P2
+049     ds1307_init.initsec
+049     @PSTRINGCN7_924.P1
 049     ds1307_set_time.hr
+049     @PRINTF_D_924.P1
 049     ds1307_get_time.@SCRATCH1
 049     MAIN.@SCRATCH1
 049     @PSTRINGC7_924.@SCRATCH1
 049     writeNightTimerData.@SCRATCH1
-04A     @PRINTF_D_924.P1
-04A     ds1307_set_time.min
 04A     ds1307_init.initmin
-04A     @PRINTF_D0_924.P1
+04A     ds1307_set_time.min
+04A     @PRINTF_D_924.P1
+04A     @PRINTF_D0_924.P2
 04A     lcd_init.@SCRATCH1
 04A     @PSTRINGC7_924.@SCRATCH2
 04A     @PSTRINGCN7_924.@SCRATCH1
@@ -148,32 +148,33 @@
 04E     @PRINTF_D_924.@SCRATCH4
 04E     @PRINTF_D0_924.@SCRATCH4
 04F     lcd_putc.c
-04F     @DIV88.P1
 04F     ds1307_init.inityear
 050     lcd_gotoxy.x
 050     @I2C_READU_129.P1
-050     @DIV88.P2
 050     bin2bcd.binary_value
 050     @delay_ms1.P1
 050     ds1307_init.@SCRATCH1
 051     @I2C_WRITEU_129.P1
-051     bin2bcd.temp
 051     bcd2bin.bcd_value
 051     lcd_gotoxy.y
-051     @DIV88.@SCRATCH1
+051     bin2bcd.@SCRATCH1
 052     lcd_gotoxy.address
-052     bin2bcd.retval
-052     bcd2bin.temp
+052     @DIV88.P1
+052     bcd2bin.@SCRATCH1
+053     @DIV88.P1
 053     lcd_gotoxy.@SCRATCH1
-053     bcd2bin.@SCRATCH1
+053     bcd2bin.@SCRATCH2
+054     @MUL88.P1
 054     lcd_send_byte.address
+054     @DIV88.@SCRATCH1
 055     lcd_send_byte.n
+055     @MUL88.P1
 056     lcd_read_byte.low
 056     lcd_send_byte.@SCRATCH1
-057     lcd_read_byte.high
 057     lcd_send_nibble.nibble
-058     lcd_read_nibble.retval
+057     lcd_read_byte.high
 058.0   lcd_read_nibble.retval_0
+058     lcd_read_nibble.retval
 058.1   lcd_read_nibble.retval_1
 058.2   lcd_read_nibble.retval_2
 058.3   lcd_read_nibble.retval_3
@@ -189,8 +190,8 @@
 079     @SCRATCH
 07A     @SCRATCH
 07F     @INTERRUPT_AREA
-081     OPTION_REG
 081.0   ps0
+081     OPTION_REG
 081.1   ps1
 081.2   ps2
 081.3   psa
@@ -198,8 +199,8 @@
 081.5   t0cs
 081.6   intedg
 081.7   not_rbpu
-085     TRISA
 085.0   TRISA0
+085     TRISA
 085.1   TRISA1
 085.2   TRISA2
 085.3   TRISA3
@@ -214,8 +215,8 @@
 086.5   TRISB5
 086.6   TRISB6
 086.7   TRISB7
-087     TRISC
 087.0   TRISC0
+087     TRISC
 087.1   TRISC1
 087.2   TRISC2
 087.3   TRISC3
@@ -250,8 +251,8 @@
 08D.7   osfie
 09C.6   C1OUT
 09C.7   C2OUT
-09F     ADCON1
 09F     ADSESL
+09F     ADCON1
 09F     ADRESH
 0FF     @INTERRUPT_AREA
 10C     EEDATA
@@ -330,13 +331,13 @@ ROM Allocation:
 000051  LCD_INIT_STRING.call
 000055  LCD_INIT_STRING.data
 000059  upHandler
-0000AC  @goto49137
+0000AC  @goto24240
 0000B5  downHandler
-0000FA  @goto49204
+0000FA  @goto24307
 000107  timer1_isr
 00017C  longEnterHandler
 000198  enterHandler
-0001DD  @const1016.call
+0001DD  @const1019.call
 0001E3  @const1027.call
 0001E9  @const1028.call
 0001EE  @const1029.call
@@ -380,29 +381,30 @@ ROM Allocation:
 000459  @I2C_WRITEU_129
 000469  @I2C_READU_129
 000479  bcd2bin
-00048C  bin2bcd
-00049F  ds1307_init
-000552  readNightTimerData
-000589  @PSTRINGC7_924
-0005DF  @DIV88
-0005F4  @PRINTF_D_924
-00064B  checkInOut
-000679  @PSTRINGCN7_924
-0006D0  @PRINTF_D0_924
-000727  displayManualMode
-00078E  writeNightTimerData
-0007B3  ds1307_set_time
-000800  displaySetNightTimer
-00091B  @goto49092
-000924  displaySetTimeMode
-000992  displaySetCurrentTime
-000A46  displayAutomaticMode
-000ACF  displayNightMode
-000B58  MAIN
-000B58  @cinit1
-000B8A  @cinit2
-000D69  ds1307_get_time
-000DB2  @goto48722
+000483  @MUL88
+0004AE  @DIV88
+0004C3  bin2bcd
+0004D5  ds1307_init
+000588  readNightTimerData
+0005BF  @PSTRINGC7_924
+000615  @PRINTF_D_924
+00066C  checkInOut
+00069A  @PSTRINGCN7_924
+0006F1  @PRINTF_D0_924
+000748  displayManualMode
+0007AF  writeNightTimerData
+000800  ds1307_set_time
+00083F  displaySetNightTimer
+000959  @goto24193
+000962  displaySetTimeMode
+0009D0  displaySetCurrentTime
+000A84  displayAutomaticMode
+000B0D  displayNightMode
+000B96  @cinit1
+000B96  MAIN
+000BC8  @cinit2
+000DA5  ds1307_get_time
+000DEE  @goto23809
 
 Project Directory:
     D:\221\Embedded System Design\Project\Automatic Light Controller\CCS\
@@ -413,11 +415,11 @@ Project Files:
     C:\Program Files (x86)\PICC\Devices\16f877a.h           [06-May-22 15:52  CRC=4E256CC5]
     def_877a.h                                              [12-Nov-22 03:19  CRC=90FE4C69]
     lcd2004.c                                               [12-Nov-22 15:23  CRC=9F7E6740]
-    ds1307.c                                                [20-Nov-22 19:24  CRC=78FF4031]
+    ds1307.c                                                [26-Dec-22 21:12  CRC=3771247C]
 
-Source signature=C9845653
+Source signature=46681EE9
 Program memory checksum=0000
-Hex file CRC=32EB
+Hex file CRC=9D89
 
 Units:
     D:\221\Embedded System Design\Project\Automatic Light Controller\CCS\main (main)

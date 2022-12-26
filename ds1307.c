@@ -133,45 +133,13 @@ void ds1307_read_data(BYTE address, BYTE &data) {
 
 BYTE bin2bcd(BYTE binary_value)
 {
-  BYTE temp;
-  BYTE retval;
-
-  temp = binary_value;
-  retval = 0;
-
-  while(TRUE)
-  {
-    // Get the tens digit by doing multiple subtraction
-    // of 10 from the binary value.
-    if(temp >= 10)
-    {
-      temp -= 10;
-      retval += 0x10;
-    }
-    else // Get the ones digit by adding the remainder.
-    {
-      retval += temp;
-      break;
-    }
-  }
-
-  return(retval);
+  return (binary_value / 10) * 16 + (binary_value % 10);
 }
 
 
 // Input range - 00 to 99.
 BYTE bcd2bin(BYTE bcd_value)
 {
-  BYTE temp;
-
-  temp = bcd_value;
-  // Shifting upper digit right by 1 is same as multiplying by 8.
-  temp >>= 1;
-  // Isolate the bits for the upper digit.
-  temp &= 0x78;
-
-  // Now return: (Tens * 8) + (Tens * 2) + Ones
-
-  return(temp + (temp >> 2) + (bcd_value & 0x0f));
+  return (bcd_value / 16) * 10 + (bcd_value % 16);
 } 
 
